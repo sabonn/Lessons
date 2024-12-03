@@ -1,26 +1,22 @@
-from Constants import Spin
 from commands2 import Command
-from Subsystems import SpinSubsys
-import wpilib
+import robot
+from SubSystem.IntakeSubsys import intake
 
-
-class spinCommand(Command):
-    def __init__(self, subsystem: SpinSubsys.spinSubsys):
-        self.subsystem = subsystem
+class intakeCommand(Command):
+    def __init__(self, subsys: intake):
+        self.subsys = subsys
         super().__init__()
 
     def initialize(self):
-
-        self.subsystem.execute()
         return super().initialize()
-
+    
     def execute(self):
+        self.subsys.activate()
         return super().execute()
-
+    
     def end(self, interrupted):
-        self.subsystem.stop()
+        self.subsys.stop()
         return super().end(interrupted)
-
+    
     def isFinished(self):
-
         return super().isFinished()

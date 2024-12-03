@@ -1,15 +1,12 @@
-class Spin:
-    id = 8
-    power = 0.8
-    maxTime = 5
 
+class Controller:
+    xboxControllerId = 0
 
-class Turn:
-    id = 7
-    power = 0.5
-    maxTime = 7
+class Intake:
+    motorID = 1
+    intakePower = 0.5
 
-class Manoa:
-    id = 2
-    Voltage = 6.0
-    MaxTime = 5.0
+class Elevator:
+    leftMotorID = 2
+    rightMotorID = 3
+

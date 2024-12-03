@@ -1,21 +1,23 @@
-from Subsystems import SpinSubsys, TurnSubsys, manoa
-from Commands import SpinCommand, TurnCommand, manoacommand
+from commands2 import Command
 from commands2 import button
+import Constants
+from SubSystem import ElevatorSubsys, IntakeSubsys, ShooterSubsys, ArmSubsys
+from Commands import IntakeCommand, ElevatorCommand, ArmCommand
 
 class RobotContainer:
-    def __init__(self):
-        self.spinSubsys = SpinSubsys.spinSubsys()
-        self.spinCommand = SpinCommand.spinCommand(self.spinSubsys)
-        self.TurnSubsys = TurnSubsys.TurnSubsys()
-        self.TurnCommand = TurnCommand.TurnCommand(self.TurnSubsys)
-        self.manoa=manoa.manoa()
-        self.manoacommand= manoacommand.manoacommand(self.manoa)
+    def __init__(self) -> None:
+        self.xboxController = button.CommandXboxController(Constants.Controller.xboxControllerId)
+        self.intakeSubsys = IntakeSubsys.intake()
+        self.elevator = ElevatorSubsys.elevator()
+        self.shooter = ShooterSubsys.shooter()
+        self.arm = ArmSubsys.arm()
 
-    def getmanoacommand(self):
-        return manoacommand.manoacommand(self.manoa)
+        self.ControllerBindings()
 
-    def getSpinCommand(self):
-        return self.spinCommand
+    def ControllerBindings(self) -> None:
+        self.xboxController.a().onTrue(IntakeCommand.intakeCommand(self.intakeSubsys))
+        self.xboxController.x().toggleOnTrue(ElevatorCommand.elevatorCommand(self.elevator,1.5))
+        self.xboxController.y().toggleOnTrue(ArmCommand.ArmCommand(self.arm,30))
 
-    def getTurnCommand(self):
-        return self.TurnCommand
+    def get_autonomous_command() -> Command:
+        return None
